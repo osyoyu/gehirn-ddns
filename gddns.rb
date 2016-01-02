@@ -14,3 +14,14 @@ OptionParser.new do |opt|
   opt.parse!(ARGV)
 end
 options[:config] ||= "config.json"
+
+config = nil
+File.open(options[:config]) {|f|
+  config = JSON.parse(f.read)
+}
+
+ENDPOINT = "https://#{config["token"]}:#{config["secret"]}@cp.gehirn.jp/api/dns"
+
+request = RestClient.get("#{ENDPOINT}/domain")
+
+puts request.to_str
