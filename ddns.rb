@@ -27,5 +27,6 @@ gdns = GehirnDNS.new(
 )
 
 domain = gdns.domains.select {|d| d.name == config["domain"] }.first
-STDERR.puts "Updating #{config["domain"]}..."
+STDERR.print "Updating #{config["domain"]}..."
 gdns.create_a(domain, config["hostname"], "auto", 300)
+STDERR.puts "Done."
